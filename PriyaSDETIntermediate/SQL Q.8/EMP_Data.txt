@@ -1,0 +1,40 @@
+1. Create Table using DDL
+CREATE TABLE EMP_Data (
+    EMP_No INT PRIMARY KEY,
+    EMP_Name VARCHAR(100),
+    EMP_Exp INT,
+    EMP_Department VARCHAR(100),
+    EMP_Salary INT
+);
+
+
+2.Insert Sample Data using DML
+INSERT INTO EMP_Data (EMP_No, EMP_Name, EMP_Exp, EMP_Department, EMP_Salary)
+VALUES
+(101, 'Alice', 3, 'IT', 60000),
+(102, 'Bob', 5, 'HR', 50000),
+(103, 'Charlie', 2, 'IT', 55000),
+(104, 'David', 4, 'Finance', 70000),
+(105, 'Eve', 3, 'HR', 52000),
+(106, 'Frank', 6, 'Finance', 72000),
+(107, 'Grace', 1, 'Marketing', 45000);
+
+3.Query: Employees Working in the Same Department
+SELECT *
+FROM EMP_Data
+WHERE EMP_Department IN (
+    SELECT EMP_Department
+    FROM EMP_Data
+    GROUP BY EMP_Department
+    HAVING COUNT(*) > 1
+);
+
+output
+| EMP\_No | EMP\_Name | EMP\_Exp | EMP\_Department | EMP\_Salary |
+| ------- | --------- | -------- | --------------- | ----------- |
+| 101     | Alice     | 3        | IT              | 60000       |
+| 103     | Charlie   | 2        | IT              | 55000       |
+| 102     | Bob       | 5        | HR              | 50000       |
+| 105     | Eve       | 3        | HR              | 52000       |
+| 104     | David     | 4        | Finance         | 70000       |
+| 106     | Frank     | 6        | Finance         | 72000       |
